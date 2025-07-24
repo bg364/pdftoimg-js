@@ -1,14 +1,14 @@
+#!/usr/bin/env node
+
 import fs from "fs";
 import path from "path";
 import { pdfToImg } from ".";
-import { program, validatePrompts } from "./prompts";
+import { argv, validatePrompts } from "./prompts";
 import { getPagesArray } from "./utils";
-
-program.parse(process.argv);
 
 async function init() {
   try {
-    const opts = validatePrompts(program.opts());
+    const opts = validatePrompts(argv as any);
 
     console.log("Processing...");
 

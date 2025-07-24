@@ -105,6 +105,7 @@ export function validateBackground(value: string) {
 }
 
 export function validateMaxWidth(value: string) {
+  if (value == "null") return null;
   const parsed = parseFloat(value);
   if (isNaN(parsed) || parsed <= 0) {
     throw new Error("Max width must be a positive number.");
@@ -113,6 +114,7 @@ export function validateMaxWidth(value: string) {
 }
 
 export function validateMaxHeight(value: string) {
+  if (value == "null") return null;
   const parsed = parseFloat(value);
   if (isNaN(parsed) || parsed <= 0) {
     throw new Error("Max height must be a positive number.");
