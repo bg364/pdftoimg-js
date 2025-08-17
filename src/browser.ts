@@ -17,10 +17,6 @@ export function pdfToImg<O extends Options, S extends PdfSrc | PdfSrc[]>(
 export async function singlePdfToImg(src: PdfSrc, opt: Partial<Options> = {}) {
   const pdfjsLib = await import("pdfjs-dist/legacy/build/pdf.mjs");
 
-  const ua = navigator.userAgent;
-  const isChrome =
-    ua.includes("chrome") || ua.includes("Chromium") || ua.includes("Chrome");
-
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     "//cdnjs.cloudflare.com/ajax/libs/pdf.js/4.8.69/pdf.worker.min.mjs";
 
@@ -28,7 +24,6 @@ export async function singlePdfToImg(src: PdfSrc, opt: Partial<Options> = {}) {
 
   const pdfDocLoading = pdfjsLib.getDocument({
     ...(isTypedArrayStrict(src) ? { data: src } : { url: src }),
-    isChrome,
     ...requiredOpt.documentOptions,
   });
 
@@ -77,6 +72,7 @@ async function pageToImg(
   canvas.width = viewport.width;
 
   const renderTask = page.render({
+    canvas,
     canvasContext,
     viewport,
     intent: opt.intent || "display",

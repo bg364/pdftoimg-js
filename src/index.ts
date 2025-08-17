@@ -74,6 +74,7 @@ async function pageToImg(
   );
 
   const renderTask = page.render({
+    canvas,
     canvasContext: context,
     viewport,
     background: opt.background || "rgb(255,255,255)",
